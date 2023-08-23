@@ -1,24 +1,39 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    [SerializeField]
-    float mouseSpeed = 15;
-    float mouseY = 0;
+    float rx = 0;
+    float ry = 0;
 
-    void Start()
+    [Header("마우스 감도")]
+    public float rotateSpeedX;
+    public float rotateSpeedY;
+
+    private void Start()
     {
-        
+        rx = transform.eulerAngles.x;
+        ry = transform.eulerAngles.y;
     }
 
-    void Update()
+    private void Update()
     {
-        mouseY += Input.GetAxis("Mouse Y") * mouseSpeed;
+        RotateCamera();
+    }
 
-        mouseY = Mathf.Clamp(mouseY, -55.0f, 55.0f);
+    private void RotateCamera()
+    {
+        float h = Input.GetAxis("Mouse X");
+        float v = Input.GetAxis("Mouse Y");
 
-        transform.localEulerAngles = new Vector3(-mouseY, 0, 0);
+        rx += v * rotateSpeedX * Time.deltaTime;
+        ry += h * rotateSpeedY * Time.deltaTime;
+
+        rx = Mathf.Clamp(rx, -55, 55);
+
+        transform.eulerAngles = new Vector3(-rx, ry, 0); 
     }
 }

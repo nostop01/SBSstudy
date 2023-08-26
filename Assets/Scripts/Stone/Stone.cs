@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class Stone : MonoBehaviour
 {
-    private bool _timerStart = false;
     [SerializeField]private float timer = 2f;
-    private float destroyTime = 0f;
+
+    private bool _timerStart = false;
+    public bool _canThrowStone = true;
+
 
     public Vector3 dir;
-
     public Vector3 _throwPower;
 
     Vector3 _dir;
@@ -36,17 +37,22 @@ public class Stone : MonoBehaviour
             GetComponent<SphereCollider>().isTrigger = false;
             GetComponent<Rigidbody>().useGravity = true;
 
-            GetComponent<Rigidbody>().AddForce(_dir, ForceMode.Impulse);
+            if (_canThrowStone)
+            {
+                GetComponent<Rigidbody>().AddForce(_dir, ForceMode.Impulse);
+            }
 
             _timerStart = true;
+
+            _canThrowStone = false;
         }
 
-        if(_timerStart == true)
+        if (_timerStart == true)
         {
             timer -= Time.deltaTime;
         }
 
-        if(timer <= 0)
+        if (timer <= 0)
         {
             Destroy(gameObject);
         }

@@ -128,5 +128,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 2
+  _canThrowStone: 1
   dir: {x: 0, y: 0, z: 0}
-  _throwPower: {x: 0, y: 15, z: 7}
+  _throwPower: {x: 0, y: 15, z: 9}

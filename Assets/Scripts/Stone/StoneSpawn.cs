@@ -10,10 +10,10 @@ public class StoneSpawn : MonoBehaviour
 
     private void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    GameObject Stone = Instantiate(_stonePrefab) as GameObject;
-        //    Stone.transform.SetParent(_stoneTrm.transform, false);
-        //}
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            GameObject Stone = Instantiate(_stonePrefab) as GameObject;
+            Stone.transform.SetParent(_stoneTrm.transform, false);
+        }
     }
 }

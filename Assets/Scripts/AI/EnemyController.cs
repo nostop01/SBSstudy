@@ -7,6 +7,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float rotateTime;
 
+    [SerializeField]
+    private float moveTime;
+
     public enum EnemyState
     {
         IDLE = 1, //기본상태 
@@ -18,25 +21,43 @@ public class EnemyController : MonoBehaviour
 
     EnemyState _state;
 
+
+    void SetIdleState()
+    {
+        _state = EnemyState.IDLE;
+    }
+
+    void SetRunState()
+    {
+        _state = EnemyState.RUN;
+    }
+
+    void SetChaseState()
+    {
+        _state = EnemyState.CHASE;
+    }
+
+    void SetMoveState()
+    {
+        _state = EnemyState.MOVE;
+    }
+
     private void Start()
     {
         SetRotateTimer();
 
-        _state = EnemyState.IDLE;
+        SetIdleState();
     }
 
     private void Update()
     {
         rotateTime -= Time.deltaTime;  //받아온 랜덤한 값에서 시간을 빼고,
 
-        if(_state == EnemyState.IDLE)
+        if (_state == EnemyState.IDLE && rotateTime == 0)
         {
-            if(rotateTime == 0)  //값이 줄어 0이 되었을 때 
-            {
-                //특정 각도만큼 회전시키는 코드 작성  //특정 각도만큼 적을 회전시킨다
+            //특정 각도만큼 회전시키는 코드 작성  //특정 각도만큼 적을 회전시킨다
 
-                SetRotateTimer();  //반복
-            }
+            SetRotateTimer();  //반복
         }
     }
 
@@ -44,4 +65,5 @@ public class EnemyController : MonoBehaviour
     {
         rotateTime = Random.Range(5f, 8f); //5초에서 8초 사이 랜덤한 값을 받는다
     }
+
 }

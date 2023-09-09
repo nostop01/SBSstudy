@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2632068360594032140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2427619457687522860}
+  m_Layer: 0
+  m_Name: BulletSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2427619457687522860
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2632068360594032140}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.503}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6329690848853134742}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6329690847084293125
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +319,7 @@ GameObject:
   - component: {fileID: 6329690848516081628}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -323,13 +354,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateTime: 0
   moveTime: 0
+  shootDelayTime: 0.5
   moveSpeed: 2
+  rotateSpeed: 5
   setRotatePos: 0
   _trmObjcts:
   - {fileID: 6329690847717094307}
   - {fileID: 6329690848190306554}
   - {fileID: 6329690847648647885}
   - {fileID: 6329690847224411011}
+  _bulletSpawner: {fileID: 2427619457687522860}
+  _bullet: {fileID: 3962806178469927174, guid: 98af96229e2ad4248b5097392c1dccaa, type: 3}
 --- !u!1 &6329690848853134741
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +395,8 @@ Transform:
   m_LocalPosition: {x: 0.35000038, y: 0.100000024, z: 0.55}
   m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2427619457687522860}
   m_Father: {fileID: 6329690847727735422}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

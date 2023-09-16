@@ -10,9 +10,11 @@ public class EnemyController : MonoBehaviour
     private float moveTime;
     [SerializeField]
     private float shootDelayTime = 0.5f;
+    [SerializeField]
+    private float knownPlayer = 1.5f;
 
     public float moveSpeed = 2f;
-    public float rotateSpeed = 5f;
+    public float rotateSpeed = 10f;
 
     private float maxRayDistance = 300f;
 
@@ -34,7 +36,8 @@ public class EnemyController : MonoBehaviour
         MOVE = 2, //걷기상태
         CHASE = 3, //쫓는상태
         ATTACK = 4, //공격중
-        QUESTION = 5 //관심을 가진 상태
+        QUESTION = 5, //관심을 가진 상태
+        READY = 6
     }
 
     EnemyState _state;
@@ -70,9 +73,9 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        rotateTime -= Time.deltaTime;  //받아온 랜덤한 값에서 시간을 빼고,
+        rotateTime -= Time.deltaTime * 1.5f;  //받아온 랜덤한 값에서 시간을 빼고,
 
-        moveTime -= Time.deltaTime;
+        moveTime -= Time.deltaTime * 1.5f;
 
         shootDelayTime -= Time.deltaTime;
 
@@ -113,10 +116,20 @@ public class EnemyController : MonoBehaviour
             _state = EnemyState.IDLE;
         }
 
+        if(_state == EnemyState.READY)
+        {
+            knownPlayer -= Time.deltaTime;
+
+            if(knownPlayer <= 0)
+            {
+                _state = EnemyState.ATTACK;
+                knownPlayer = 1.5f;
+            }
+        }
+
         if(_state == EnemyState.ATTACK && shootDelayTime <= 0)
         {
             Attack();
-            _state = EnemyState.IDLE;
         }
     }
 
@@ -133,10 +146,7 @@ public class EnemyController : MonoBehaviour
 
     void Turn(int i)
     {
-        Vector3 vec = _trmObjcts[i].position - transform.position;
-        var newRotation = Quaternion.LookRotation(vec);
-
-        rigid.rotation = Quaternion.Slerp(rigid.rotation, newRotation, rotateSpeed * Time.deltaTime);
+        transform.Rotate(new Vector3(_trmObjcts[i].transform.position.x, _trmObjcts[i].transform.position.y, _trmObjcts[i].transform.position.z) * Time.deltaTime);
     }
 
     void SetRotate()
@@ -164,7 +174,7 @@ public class EnemyController : MonoBehaviour
         {
             if(hit.collider.CompareTag("Player"))
             {
-                _state = EnemyState.ATTACK;
+                _state = EnemyState.READY;
             }
         }
     }
@@ -173,5 +183,6 @@ public class EnemyController : MonoBehaviour
     {
         Instantiate(_bullet, _bulletSpawner.position, _bulletSpawner.rotation);
         shootDelayTime = 0.5f;
+        _state = EnemyState.IDLE;
     }
 }

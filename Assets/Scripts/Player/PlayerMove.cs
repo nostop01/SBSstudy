@@ -25,7 +25,7 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 dir = new Vector3(h, 0, v);
 
-        transform.Translate(dir.normalized * moveSpeed * Time.deltaTime, Space.Self);
+        transform.Translate(dir * moveSpeed * Time.deltaTime);
 
         transform.eulerAngles = new Vector3(0, rx, 0);
     }

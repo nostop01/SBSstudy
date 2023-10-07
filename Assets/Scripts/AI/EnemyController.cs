@@ -37,11 +37,11 @@ public class EnemyController : MonoBehaviour
         switch(_state)
         {
             case EnemyState.IDLE:
-
+                OnIdleAct();
                 break;
 
             case EnemyState.MOVE:
-
+                OnMoveAct();
                 break;
 
             case EnemyState.CHASE:
@@ -60,12 +60,14 @@ public class EnemyController : MonoBehaviour
 
                 break;
         }
+
+        Debug.DrawRay(transform.position, transform.forward * 10, Color.blue);
     }
 
     void ChaseTarget()
     {
-        Vector3 TargetDir = (_playerTrm.transform.position - transform.position).normalized;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(TargetDir), 0.5f);
+        Vector3 TargetDir = (_playerTrm.transform.position - transform.position);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(TargetDir), 1);
 
         if (Vector3.Distance(_playerTrm.position, transform.position) >= 4.5f)
         {
@@ -77,6 +79,8 @@ public class EnemyController : MonoBehaviour
             if (_hit.collider.name == "PlayerTrm")
             {
                 _state = EnemyState.ATTACK;
+
+                
             }
         }
 
@@ -90,12 +94,22 @@ public class EnemyController : MonoBehaviour
 
     void AttackTarget()
     {
-        Instantiate(_bullet, _gun.transform.position, _gun.transform.rotation);
         WaitSecond(2);
+        Instantiate(_bullet, _gun.transform.position, _gun.transform.rotation);
     }
 
     IEnumerator WaitSecond(int i)
     {
         yield return new WaitForSeconds(i);
+    }
+
+    void OnMoveAct()
+    {
+
+    }
+
+    void OnIdleAct()
+    {
+
     }
 }

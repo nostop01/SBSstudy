@@ -79,9 +79,9 @@ public class EnemyController : MonoBehaviour
             if (_hit.collider.name == "PlayerTrm")
             {
                 _state = EnemyState.ATTACK;
-
-                
             }
+
+            WaitSecond(2);
         }
 
     }
@@ -94,8 +94,8 @@ public class EnemyController : MonoBehaviour
 
     void AttackTarget()
     {
-        WaitSecond(2);
         Instantiate(_bullet, _gun.transform.position, _gun.transform.rotation);
+        _state = EnemyState.IDLE;
     }
 
     IEnumerator WaitSecond(int i)
@@ -105,7 +105,7 @@ public class EnemyController : MonoBehaviour
 
     void OnMoveAct()
     {
-
+        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
     }
 
     void OnIdleAct()

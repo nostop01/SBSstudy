@@ -29,7 +29,7 @@ public class PlayerStatus : MonoBehaviour
 
     }
 
-    void _IfPlayerHit()
+    void IfPlayerHit()
     {
         _playerHit = true;
     }
@@ -38,7 +38,7 @@ public class PlayerStatus : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Enemy"))
         {
-            _IfPlayerHit();
+            IfPlayerHit();
         }
     }
 }

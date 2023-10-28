@@ -16,6 +16,7 @@ public class Stone : MonoBehaviour
 
     Vector3 _dir;
 
+    StoneSpawn _stoneSpawn;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class Stone : MonoBehaviour
 
         GetComponent<Rigidbody>().useGravity = false;
         GetComponent<SphereCollider>().isTrigger = true;
+        _stoneSpawn = FindObjectOfType<StoneSpawn>();
     }
 
     // Update is called once per frame
@@ -45,6 +47,8 @@ public class Stone : MonoBehaviour
             _timerStart = true;
 
             _canThrowStone = false;
+
+            _stoneSpawn._haveStone = false;
         }
 
         if (_timerStart == true)

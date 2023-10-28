@@ -8,12 +8,18 @@ public class StoneSpawn : MonoBehaviour
 
     public Transform _stoneTrm;
 
+    public bool _haveStone = false;
+
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.G))
+        if(_haveStone == false)
         {
-            GameObject Stone = Instantiate(_stonePrefab) as GameObject;
-            Stone.transform.SetParent(_stoneTrm.transform, false);
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                GameObject Stone = Instantiate(_stonePrefab) as GameObject;
+                Stone.transform.SetParent(_stoneTrm.transform, false);
+                _haveStone = true;
+            }
         }
     }
 }
